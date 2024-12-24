@@ -1,58 +1,43 @@
-import { uuid } from 'uuidv4';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('clients')
 export class Client {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   name: string;
 
+  @Column()
   cgc: string;
 
+  @Column()
   fantasy: string;
 
+  @Column()
   cep: string;
 
+  @Column()
   address: string;
 
+  @Column()
   streetNumber: number;
 
+  @Column()
   district: string;
 
+  @Column()
   city: string;
 
+  @Column()
   email: string;
 
+  @Column()
   phone: string;
 
+  @Column()
   observations: string;
 
+  @Column('timestamp with time zone')
   createDate: Date;
-
-  constructor({
-    name,
-    cgc,
-    fantasy,
-    cep,
-    address,
-    streetNumber,
-    district,
-    city,
-    email,
-    observations,
-    phone,
-    createDate,
-  }: Omit<Client, 'id'>) {
-    this.id = uuid();
-    this.name = name;
-    this.cgc = cgc;
-    this.fantasy = fantasy;
-    this.cep = cep;
-    this.address = address;
-    this.streetNumber = streetNumber;
-    this.district = district;
-    this.city = city;
-    this.email = email;
-    this.phone = phone;
-    this.observations = observations;
-    this.createDate = createDate;
-  }
 }
