@@ -1,5 +1,5 @@
 {
-   "name": "order-managment-bff",
+   "name": "os-api",
    "version": "1.0.0",
    "author": "Ismael Cézar da Silva Gomes",
    "main": "index.js",
@@ -7,7 +7,9 @@
       "dev": "tsx watch src/http/server.ts",
       "build": "tsup src",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "migrate:create": "ts-node ./node_modules/typeorm/cli.js migration:create -n",
+      "migrate:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
+      "migrate:down": "ts-node ./node_modules/typeorm/cli.js migration:revert"
    },
    "keywords": [],
    "license": "MIT",
@@ -17,7 +19,7 @@
       "express": "^4.21.1",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
-      "typeorm": "0.3.20",
+      "typeorm": "^0.2.41",
       "uuidv4": "^6.2.13"
    },
    "devDependencies": {
@@ -29,7 +31,7 @@
       "eslint-config-prettier": "^9.1.0",
       "globals": "^15.12.0",
       "prettier": "3.3.3",
-      "ts-node": "10.9.1",
+      "ts-node": "^10.9.1",
       "tsup": "^8.3.5",
       "tsx": "^4.19.2",
       "typescript": "4.5.2",

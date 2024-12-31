@@ -1,5 +1,6 @@
 import { parseISO } from 'date-fns';
 import { ClientsRepository } from '../repositories/Clients.repository';
+import { getCustomRepository } from 'typeorm';
 
 interface Request {
   name: string;
@@ -16,14 +17,8 @@ interface Request {
   createDate: string;
 }
 
-export class CreateClient {
-  private createClient: ClientsRepository;
-
-  constructor(createClient: ClientsRepository) {
-    this.createClient = createClient;
-  }
-
-  public execute({
+export class CreateClient extends ClientsRepository {
+  public async execute({
     name,
     cgc,
     address,
@@ -37,9 +32,10 @@ export class CreateClient {
     streetNumber,
     createDate,
   }: Request) {
+    const clientsRepository = getCustomRepository(ClientsRepository);
     const createDateCLient = parseISO(createDate);
 
-    const client = this.createClient.create({
+    const client = clientsRepository.create({
       name,
       cgc,
       address,
@@ -54,6 +50,7 @@ export class CreateClient {
       createDate: createDateCLient,
     });
 
+    await clientsRepository.save(client);
     return client;
   }
 }
