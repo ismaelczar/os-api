@@ -1,6 +1,8 @@
 import { parseISO } from 'date-fns';
-import { ClientsRepository } from '../repositories/Clients.repository';
 import { getCustomRepository } from 'typeorm';
+
+import { ClientsRepository } from '../repositories/Clients.repository';
+import { Client } from '../entity/Clients';
 
 interface Request {
   name: string;
@@ -17,7 +19,8 @@ interface Request {
   createDate: string;
 }
 
-export class CreateClient extends ClientsRepository {
+export class CreateClientService {
+
   public async execute({
     name,
     cgc,
@@ -31,7 +34,7 @@ export class CreateClient extends ClientsRepository {
     phone,
     streetNumber,
     createDate,
-  }: Request) {
+  }: Request): Promise<Client> {
     const clientsRepository = getCustomRepository(ClientsRepository);
     const createDateCLient = parseISO(createDate);
 
@@ -50,6 +53,7 @@ export class CreateClient extends ClientsRepository {
       createDate: createDateCLient,
     });
 
+    //Salvar no banco de dados "Create não salva altomaticamente".
     await clientsRepository.save(client);
     return client;
   }

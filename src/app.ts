@@ -3,7 +3,7 @@ import cors from 'cors';
 import { routes } from './routes';
 
 import './database';
-import 'reflect-metadata';
+
 
 export const app = Express();
 

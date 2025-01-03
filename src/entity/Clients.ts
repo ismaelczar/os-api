@@ -5,39 +5,39 @@ export class Client {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   cgc: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   fantasy: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
   cep: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   address: string;
 
-  @Column()
+  @Column({ type: 'int' })
   streetNumber: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   district: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   city: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 20 })
   phone: string;
 
-  @Column()
+  @Column({ type: 'text', nullable: true }) // Observações podem ser opcionais
   observations: string;
 
-  @Column('timestamp with time zone')
+  @Column({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
   createDate: Date;
 }

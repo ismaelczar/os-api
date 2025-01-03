@@ -1,24 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Router } from 'express';
 import { ClientsRepository } from '../repositories/Clients.repository';
-import { CreateClient } from '../services/CreateClient';
+import { CreateClientService } from '../services/CreateClientService';
+import { getCustomRepository } from 'typeorm';
 
-export const ClientsRoute = Router();
+export const clientsRoute = Router();
 
-const clientsRepository = new ClientsRepository();
-const createClient = new CreateClient(clientsRepository);
 
-ClientsRoute.get('/', (req, res) => {
-  const clients = clientsRepository.findAll();
 
-  return res.json(clients) as any;
+
+
+
+clientsRoute.get('/', (req, res) => {
+  //Instanciando Repositorio.
+  const clientsRepository = getCustomRepository(ClientsRepository);
+  const clients = clientsRepository.find();
+
+  return res.json(clients) as any
 });
 
-ClientsRoute.post('/', (req, res) => {
+clientsRoute.post('/', async (req, res) => {
   try {
     const clientData = req.body;
 
-    const client = createClient.execute(clientData);
+    //Instanciando service.
+    const createClient = new CreateClientService();
+    const client = await createClient.execute(clientData);
 
     return res.json(client) as any;
   } catch (error) {
@@ -26,10 +33,10 @@ ClientsRoute.post('/', (req, res) => {
   }
 });
 
-ClientsRoute.put('/', (req, res) => {
+clientsRoute.put('/', (req, res) => {
   return res.json({ message: 'Alterando cadastros de clientes' }) as any;
 });
 
-ClientsRoute.delete('/', (req, res) => {
+clientsRoute.delete('/', (req, res) => {
   return res.json({ message: 'Removendo clientes' }) as any;
 });

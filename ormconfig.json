@@ -1,12 +1,14 @@
 {
-  "host": "localhost",
+
   "type": "postgres",
+  "host": "localhost",
   "port": 5432,
-  "username": "docker",
+  "username": "postgres",
   "password": "docker",
-  "database": "os-api",
+  "database": "postgres",
+  "logging": true,
   "entities": [
-    "src/**/**.entity{.ts,.js}"
+    "src/entity/*.ts"
   ],
   "migrations": [
     "src/database/migrations/*.ts"

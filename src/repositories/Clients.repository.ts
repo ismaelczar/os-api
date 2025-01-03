@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+
 import { Client } from '../entity/Clients';
 
 export class ClientsRepository extends Repository<Client> {
