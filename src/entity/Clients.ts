@@ -1,43 +1,49 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('clients')
 export class Client {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 35 })
-  name: string;
+  @Column()
+  code: string;
 
-  @Column({ type: 'varchar', length: 18 })
+  @Column()
+  company_name: string;
+
+  @Column()
   cgc: string;
 
-  @Column({ type: 'varchar', length: 35 })
-  fantasy: string;
+  @Column()
+  company_fantasy: string;
 
-  @Column({ type: 'varchar', length: 14 })
-  cep: string;
+  @Column()
+  postal_code: string;
 
-  @Column({ type: 'varchar', length: 35 })
-  address: string;
+  @Column()
+  street: string;
 
-  @Column({ type: 'varchar', length: 10 }) // Alterado de int para suportar complementos
-  streetNumber: string;
+  @Column()
+  street_number: string;
 
-  @Column({ type: 'varchar', length: 35 })
-  district: string;
+  @Column()
+  neighborhood: string;
 
-  @Column({ type: 'varchar', length: 35 })
+  @Column()
   city: string;
 
-  @Column({ type: 'varchar', length: 35 })
+  @Column()
   email: string;
 
-  @Column({ type: 'varchar', length: 20 }) // Ajustado o comprimento
-  phone: string;
+  @Column()
+  phone_number: string;
 
-  @Column({ type: 'text', nullable: true }) // Observações podem ser opcionais
-  observations: string;
+  @Column()
+  notes: string;
 
-  @CreateDateColumn({ type: 'timestamp with time zone' })
-  createDate: Date;
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }

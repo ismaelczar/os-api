@@ -5,77 +5,76 @@ export class CreateClients1733178050424 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'clients', //nome da tabela
+        name: 'clients',
         columns: [
           {
             name: 'id',
-            type: 'varchar', //usado para id's como uuidv4
+            type: 'varchar',
             isPrimary: true,
-            generationStrategy: 'uuid', //gera id de forma automatica sendo uuid.
+            generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'name',
+            name: 'code',
             type: 'varchar',
-            isNullable: false, // não será possível ter este campo como false "obrigatório"
+            isUnique: true
+          },
+          {
+            name: 'company_name',
+            type: 'varchar',
           },
           {
             name: 'cgc',
             type: 'varchar',
-            isNullable: false,
+            isUnique: true
           },
           {
-            name: 'fantasy',
+            name: 'company_fantasy',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'cep',
+            name: 'postal_code',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'address',
+            name: 'street',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'streetNumber',
+            name: 'street_number',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'district',
+            name: 'neighborhood',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'city',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'email',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'phone',
+            name: 'phone_phone',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'observations',
+            name: 'notes',
             type: 'varchar',
-            isNullable: false,
           },
           {
-            name: 'createDate',
-            type: 'timestamp with time zone',
-            isNullable: false
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
           }
         ]
-
       })
     )
   }

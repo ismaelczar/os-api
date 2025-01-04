@@ -5,59 +5,63 @@ import { ClientsRepository } from '../repositories/Clients.repository';
 import { Client } from '../entity/Clients';
 
 interface Request {
-  name: string;
+  id: string;
+  code: string;
+  company_name: string;
   cgc: string;
-  fantasy: string;
-  cep: string;
-  address: string;
-  streetNumber: string;
-  district: string;
+  company_fantasy: string;
+  postal_code: string;
+  street: string;
+  street_number: string;
+  neighborhood: string;
   city: string;
   email: string;
-  phone: string;
-  observations: string;
-  createDate: string;
+  phone_number: string;
+  notes: string;
+  created_at: string;
+  updated_at: string
 }
 
 export class CreateClientService {
 
   public async execute({
-    name,
+    company_name,
+    code,
     cgc,
-    address,
-    cep,
+    company_fantasy,
+    postal_code,
+    street,
+    street_number,
+    neighborhood,
     city,
-    district,
-    email,
-    fantasy,
-    observations,
-    phone,
-    streetNumber,
-    createDate,
+    notes,
+    phone_number,
+    created_at,
+    updated_at,
   }: Request): Promise<Client> {
     const clientsRepository = getCustomRepository(ClientsRepository);
-    const createDateCLient = parseISO(createDate);
+    const createDateCLient = parseISO(created_at);
 
-
-    const existingClient = await clientsRepository.findByCgc(cgc)
+    const existingClient = await clientsRepository.findByCgc(cgc);
 
     if (existingClient) {
       throw Error('Client with this CGC already exists.')
     }
 
     const client = clientsRepository.create({
-      name,
+      company_name,
       cgc,
-      address,
-      cep,
+      code,
+      company_fantasy,
+      postal_code,
+      street,
+      street_number,
+      neighborhood,
       city,
-      district,
-      email,
-      fantasy,
-      observations,
-      phone,
-      streetNumber,
-      createDate: createDateCLient,
+      notes,
+      phone_number,
+      created_at: createDateCLient,
+      updated_at: updated_at ? parseISO(updated_at) : new Date()
     });
 
     //Salvar no banco de dados "Create não salva altomaticamente".
