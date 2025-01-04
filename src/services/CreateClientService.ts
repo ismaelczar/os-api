@@ -10,7 +10,7 @@ interface Request {
   fantasy: string;
   cep: string;
   address: string;
-  streetNumber: number;
+  streetNumber: string;
   district: string;
   city: string;
   email: string;

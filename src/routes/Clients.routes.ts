@@ -6,37 +6,37 @@ import { getCustomRepository } from 'typeorm';
 
 export const clientsRoute = Router();
 
-
-
-
-
-
-clientsRoute.get('/', (req, res) => {
-  //Instanciando Repositorio.
-  const clientsRepository = getCustomRepository(ClientsRepository);
-  const clients = clientsRepository.find();
-
-  return res.json(clients) as any
-});
-
-clientsRoute.post('/', async (req, res) => {
+// GET: Retornar todos os clientes.
+clientsRoute.get('/', async (_req, res): Promise<any> => {
   try {
-    const clientData = req.body;
+    const clientsRepository = getCustomRepository(ClientsRepository)
+    const clients = clientsRepository.find()
 
-    //Instanciando service.
-    const createClient = new CreateClientService();
-    const client = await createClient.execute(clientData);
-
-    return res.json(client) as any;
+    return res.status(200).json(clients)
   } catch (error) {
-    console.log(error);
+    console.log(error)
+    res.status(500).json({ error: 'Error fetching clients' })
   }
 });
 
-clientsRoute.put('/', (req, res) => {
-  return res.json({ message: 'Alterando cadastros de clientes' }) as any;
+// POST: Cria um novo cliente.
+clientsRoute.post('/', async (req, res): Promise<any> => {
+  try {
+    const clientData = req.body;
+    const createClient = new CreateClientService();
+    const client = await createClient.execute(clientData);
+
+    return res.status(201).json(client)
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ error: 'Error creating client' });
+  }
 });
 
-clientsRoute.delete('/', (req, res) => {
-  return res.json({ message: 'Removendo clientes' }) as any;
+clientsRoute.put('/', (_req, res): Promise<any> => {
+  return res.json({ message: 'Alterando cadastros de clientes' })
+});
+
+clientsRoute.delete('/', (_req, res): Promise<any> => {
+  return res.json({ message: 'Removendo clientes' })
 });
