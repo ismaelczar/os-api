@@ -10,7 +10,7 @@ export const clientsRoute = Router();
 clientsRoute.get('/', async (_req, res): Promise<any> => {
   try {
     const clientsRepository = getCustomRepository(ClientsRepository)
-    const clients = clientsRepository.find()
+    const clients = await clientsRepository.find()
 
     return res.status(200).json(clients)
   } catch (error) {
@@ -29,7 +29,7 @@ clientsRoute.post('/', async (req, res): Promise<any> => {
     return res.status(201).json(client)
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error: 'Error creating client' });
+    return res.status(400).json({ error: error.message });
   }
 });
 

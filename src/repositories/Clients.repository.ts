@@ -4,9 +4,9 @@ import { Client } from '../entity/Clients';
 
 @EntityRepository(Client)
 export class ClientsRepository extends Repository<Client> {
-  public async findByDate(date: Date): Promise<Client | null> {
+  public async findByCgc(cgc: string): Promise<Client | null> {
     const findClient = await this.findOne({
-      where: { createDate: date },
+      where: { cgc: cgc },
     });
 
     return findClient || null;

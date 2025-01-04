@@ -38,6 +38,13 @@ export class CreateClientService {
     const clientsRepository = getCustomRepository(ClientsRepository);
     const createDateCLient = parseISO(createDate);
 
+
+    const existingClient = await clientsRepository.findByCgc(cgc)
+
+    if (existingClient) {
+      throw Error('Client with this CGC already exists.')
+    }
+
     const client = clientsRepository.create({
       name,
       cgc,
