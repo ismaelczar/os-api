@@ -9,7 +9,7 @@ export class CreateClients1733178050424 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
@@ -62,7 +62,7 @@ export class CreateClients1733178050424 implements MigrationInterface {
           },
           {
             name: 'notes',
-            type: 'varchar',
+            type: 'text',
           },
           {
             name: 'created_at',
