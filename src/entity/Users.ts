@@ -6,18 +6,18 @@ export class Users {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   name: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   email: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   password: string
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
   updated_at: Date
 }

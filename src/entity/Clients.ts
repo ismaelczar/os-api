@@ -5,45 +5,45 @@ export class Client {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   code: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   company_name: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   cgc: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   company_fantasy: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   postal_code: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   street: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   street_number: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   neighborhood: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   city: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   phone_number: string;
 
-  @Column()
+  @Column({ type: 'text' })
   notes: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
   updated_at: Date;
 }
