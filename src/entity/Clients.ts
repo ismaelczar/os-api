@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Tickets } from './Tickets';
 
 @Entity('clients')
 export class Client {
@@ -40,6 +41,9 @@ export class Client {
 
   @Column({ type: 'text' })
   notes: string;
+
+  @OneToMany(() => Tickets, (ticket) => ticket.company) // Relacionamento inverso
+  tickets: Tickets[]
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date;

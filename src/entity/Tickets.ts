@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Client } from "./Clients";
 
 @Entity('tickets')
 export class Tickets {
@@ -12,8 +13,12 @@ export class Tickets {
   @Column({ type: 'varchar' })
   request_name: string
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'uuid' }) // coluna que armazena as chaves estrangeiras
   company_name_id: string
+
+  @ManyToOne(() => Client)
+  @JoinColumn({ name: 'company_name_id' }) // coluna que faz o relacionamento entre as tabelas
+  company: Client
 
   @Column({ type: 'varchar' })
   company_name: string
