@@ -57,7 +57,7 @@ export class CreateClients1733178050424 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'phone_phone',
+            name: 'phone_number',
             type: 'varchar',
           },
           {

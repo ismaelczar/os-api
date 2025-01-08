@@ -34,14 +34,15 @@ export class CreateClientService {
     street_number,
     neighborhood,
     city,
+    email,
     notes,
     phone_number,
     created_at,
     updated_at,
   }: Request): Promise<Client> {
     const clientsRepository = getCustomRepository(ClientsRepository);
-    const createDateCLient = parseISO(created_at);
-
+    const parsedDate = parseISO(created_at);
+    const recordCreationDate = new Date().toISOString();
     const existingClient = await clientsRepository.findByCgc(cgc);
 
     if (existingClient) {
@@ -58,10 +59,11 @@ export class CreateClientService {
       street_number,
       neighborhood,
       city,
+      email,
       notes,
       phone_number,
-      created_at: createDateCLient,
-      updated_at: updated_at ? parseISO(updated_at) : new Date()
+      created_at: created_at ? parsedDate : recordCreationDate,
+      updated_at: updated_at ? parsedDate : recordCreationDate
     });
 
     //Salvar no banco de dados "Create não salva altomaticamente".
