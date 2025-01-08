@@ -1,6 +1,9 @@
 import { getRepository } from "typeorm"
-import { Users } from "../entity/Users"
+
 import { parseISO } from "date-fns"
+import { hash } from 'bcryptjs'
+
+import { Users } from "../entity/Users"
 
 interface Request {
   name: string
@@ -25,10 +28,12 @@ export class CreateUsersService {
       throw new Error('Already have a user with this e-mail')
     }
 
+    const hashedPassword = await hash(password, 8)
+
     const user = userRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
       created_at: created_at ? parsedDate : recordCreationDate,
       updated_at: updated_at ? parsedDate : recordCreationDate
     })

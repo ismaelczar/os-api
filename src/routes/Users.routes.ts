@@ -11,6 +11,8 @@ usersRouter.post('/', async (req, res): Promise<any> => {
     const usersRepository = new CreateUsersService();
     const createUser = await usersRepository.execute(userBody)
 
+    delete createUser.password
+
     return res.status(200).json(createUser)
   } catch (error) {
     console.log(error)
