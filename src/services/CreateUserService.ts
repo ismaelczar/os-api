@@ -21,11 +21,14 @@ export class CreateUsersService {
     const recordCreationDate = new Date().toISOString();
 
     const existingUser = await userRepository.findOne({
-      where: { email: email }
+      where: [
+        { email: email },
+        { name: name },
+      ]
     })
 
     if (existingUser) {
-      throw new Error('Already have a user with this e-mail')
+      throw new Error('Already have a user with this information')
     }
 
     const hashedPassword = await hash(password, 8)

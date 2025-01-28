@@ -6,7 +6,7 @@ import { getCustomRepository } from 'typeorm';
 
 export const clientsRoute = Router();
 
-// GET: Retornar todos os clientes.
+
 clientsRoute.get('/', async (_req, res): Promise<any> => {
   try {
     const clientsRepository = getCustomRepository(ClientsRepository)
@@ -19,7 +19,7 @@ clientsRoute.get('/', async (_req, res): Promise<any> => {
   }
 });
 
-// POST: Cria um novo cliente.
+
 clientsRoute.post('/', async (req, res): Promise<any> => {
   try {
     const clientData = req.body;

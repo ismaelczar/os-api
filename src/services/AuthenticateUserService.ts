@@ -22,13 +22,13 @@ export class AuthenticateUserService {
     })
 
     if (!user) {
-      throw Error('Incorrect combination1')
+      throw Error('Incorrect combination')
     }
 
     const passwordMatched = await compare(password, user.password)
 
     if (!passwordMatched) {
-      throw Error('Incorrect password2')
+      throw Error('Incorrect password')
     }
 
     //  Criando o token a partir do id do registro.

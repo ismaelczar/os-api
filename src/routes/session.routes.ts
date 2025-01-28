@@ -15,7 +15,6 @@ sessionRouter.post('/', async (req, res): Promise<any> => {
     return res.status(200).json({ user, token })
 
   } catch (error) {
-
     console.log(error)
     return res.status(400).json({ error: error.message })
   }
