@@ -1,7 +1,9 @@
-import { getRepository } from "typeorm";
-import { Users } from "../entity/Users";
 import { compare } from "bcryptjs";
 import { sign } from 'jsonwebtoken'
+import { getRepository } from "typeorm";
+
+import { Users } from "../entity/Users";
+import auth from '../config/auth'
 
 interface Request {
   name: string
@@ -31,10 +33,12 @@ export class AuthenticateUserService {
       throw Error('Incorrect password')
     }
 
-    //  Criando o token a partir do id do registro.
-    const token = sign({}, 'ac3b62ff1f933f80edbce705537d24ce', {
+    //  Cria um token quando houver login.
+    const { secret, expiresIn } = auth.jwt
+    const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: '1d'
+      expiresIn
+
     })
 
     return { user, token }

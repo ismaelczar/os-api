@@ -3,8 +3,11 @@ import { Router } from 'express';
 import { ClientsRepository } from '../repositories/Clients.repository';
 import { CreateClientService } from '../services/CreateClientService';
 import { getCustomRepository } from 'typeorm';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 export const clientsRoute = Router();
+
+clientsRoute.use(ensureAuthenticated)
 
 
 clientsRoute.get('/', async (_req, res): Promise<any> => {
