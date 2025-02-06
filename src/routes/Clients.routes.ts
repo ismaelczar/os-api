@@ -1,11 +1,18 @@
 import express, { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
+import { z } from 'zod'
+
 import { ClientsRepository } from '../repositories/Clients.repository';
 import { CreateClientService } from '../services/CreateClientService';
-import { getCustomRepository } from 'typeorm';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 export const clientsRoute = express.Router();
 clientsRoute.use(ensureAuthenticated)
+
+const clientSchema = z.object({
+  cgc: z.string(),
+  company: z.string(),
+})
 
 clientsRoute.get('/', async (req: Request, res: Response): Promise<any> => {
   try {
@@ -22,7 +29,9 @@ clientsRoute.get('/', async (req: Request, res: Response): Promise<any> => {
 
 clientsRoute.post('/', async (req, res): Promise<any> => {
   try {
-    const clientData = req.body;
+    //TODO: VALIDAR DADOS DA REQUISIÇÃO.
+    // const clientData = req.body; as clientSchema
+    const clientData = req.body
     const createClient = new CreateClientService();
     const client = await createClient.execute(clientData);
 
