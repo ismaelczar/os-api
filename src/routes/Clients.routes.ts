@@ -1,24 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Router } from 'express';
+import express, { Request, Response } from 'express';
 import { ClientsRepository } from '../repositories/Clients.repository';
 import { CreateClientService } from '../services/CreateClientService';
 import { getCustomRepository } from 'typeorm';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
-export const clientsRoute = Router();
-
+export const clientsRoute = express.Router();
 clientsRoute.use(ensureAuthenticated)
 
-
-clientsRoute.get('/', async (_req, res): Promise<any> => {
+clientsRoute.get('/', async (req: Request, res: Response): Promise<any> => {
   try {
-    const clientsRepository = getCustomRepository(ClientsRepository)
-    const clients = await clientsRepository.find()
+    const clientsRepository = getCustomRepository(ClientsRepository);
+    const clients = await clientsRepository.find();
 
-    return res.status(200).json(clients)
+    return res.status(200).json(clients);
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: 'Error fetching clients' })
+    console.log(error);
+    return res.status(500).json({ error: 'Error fetching clients' });
   }
 });
 
