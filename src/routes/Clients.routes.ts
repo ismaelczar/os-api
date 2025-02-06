@@ -42,10 +42,13 @@ clientsRoute.post('/', async (req, res): Promise<any> => {
   }
 });
 
-clientsRoute.put('/', (_req, res): Promise<any> => {
+clientsRoute.put('/:id', (req: Request, res: Response): Promise<any> => {
+  const { id } = req.params
+  //TODO: ADICIONAR ATUALIZAÇÃO DE CADASTRO DE CLIENTES
+
   return res.json({ message: 'Alterando cadastros de clientes' })
 });
 
-clientsRoute.delete('/', (_req, res): Promise<any> => {
+clientsRoute.delete('/:id', (req, res): Promise<any> => {
   return res.json({ message: 'Removendo clientes' })
 });
