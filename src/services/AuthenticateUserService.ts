@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken'
 import { getRepository } from "typeorm";
 
 import { Users } from "../entity/Users";
-import auth from '../config/auth'
+import auth from '../config/authConfig'
 
 interface Request {
   name: string
@@ -24,7 +24,7 @@ export class AuthenticateUserService {
     })
 
     if (!user) {
-      throw Error('Incorrect combination')
+      throw Error('User not found')
     }
 
     const passwordMatched = await compare(password, user.password)
