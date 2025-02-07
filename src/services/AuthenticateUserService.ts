@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken'
 import { getRepository } from "typeorm";
 
 import { Users } from "../entity/Users";
-import auth from '../config/authConfig'
+import auth from '../config/auth'
 
 interface Request {
   name: string

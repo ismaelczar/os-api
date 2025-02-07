@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken';
 
-import authConfig from '../config/authConfig'
+import authConfig from '../config/auth'
 
 interface RequestPayload {
   iat: number
@@ -25,6 +25,7 @@ export function ensureAuthenticated(req: Request, res: Response, next: NextFunct
     req.user = {
       id: sub
     }
+
     return next()
 
   } catch {
