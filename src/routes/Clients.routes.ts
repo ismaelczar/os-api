@@ -9,7 +9,7 @@ import { clientSchema } from '../schemas/clientSchema';
 export const clientsRoute = express.Router();
 clientsRoute.use(ensureAuthenticated)
 
-clientsRoute.get('/', async (_, res: Response): Promise<any> => {
+clientsRoute.get('/', async (req: Request, res: Response): Promise<any> => {
   try {
     const clientsRepository = getCustomRepository(ClientsRepository);
     const clients = await clientsRepository.find();
