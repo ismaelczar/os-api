@@ -1,18 +1,13 @@
 import express, { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
-import { z } from 'zod'
 
 import { ClientsRepository } from '../repositories/Clients.repository';
 import { CreateClientService } from '../services/CreateClientService';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+import { clientSchema } from '../schemas/clientSchema';
 
 export const clientsRoute = express.Router();
 clientsRoute.use(ensureAuthenticated)
-
-const clientSchema = z.object({
-  cgc: z.string(),
-  company: z.string(),
-})
 
 clientsRoute.get('/', async (req: Request, res: Response): Promise<any> => {
   try {
@@ -26,29 +21,30 @@ clientsRoute.get('/', async (req: Request, res: Response): Promise<any> => {
   }
 });
 
-
 clientsRoute.post('/', async (req, res): Promise<any> => {
   try {
-    //TODO: VALIDAR DADOS DA REQUISIÇÃO.
-    // const clientData = req.body; as clientSchema
-    const clientData = req.body
+    const { error, value } = clientSchema.validate(req.body)
+
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message })
+    }
     const createClient = new CreateClientService();
-    const client = await createClient.execute(clientData);
+    const client = await createClient.execute(value);
 
     return res.status(201).json(client)
+
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ error: error.message });
   }
 });
 
+//TODO: ADICIONAR ATUALIZAÇÃO DE CADASTRO DE CLIENTES.
 clientsRoute.put('/:id', (req: Request, res: Response): Promise<any> => {
   const { id } = req.params
-  //TODO: ADICIONAR ATUALIZAÇÃO DE CADASTRO DE CLIENTES
-
   return res.json({ message: 'Alterando cadastros de clientes' })
 });
 
+//TODO: ADICIONAR ROTA DE DELETAR CLIENTES.
 clientsRoute.delete('/:id', (req, res): Promise<any> => {
   return res.json({ message: 'Removendo clientes' })
 });
