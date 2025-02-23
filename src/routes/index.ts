@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { clientsRoute } from "./clients.routes";
-import { usersRouter } from "./users.routes";
-import { sessionRouter } from "./session.routes";
+import { clientsRoute } from "./Clients.routes";
+import { usersRouter } from "./Users.routes";
+import { sessionRouter } from "./Session.routes";
 
 export const routes = Router();
 
