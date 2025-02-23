@@ -2,7 +2,7 @@ import { compare } from "bcryptjs";
 import { sign } from 'jsonwebtoken'
 import { getRepository } from "typeorm";
 
-import { Users } from "../entity/Users";
+import { Users } from "../entity/User";
 import auth from '../config/auth'
 
 interface Request {

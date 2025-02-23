@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity('users')
-export class Users {
+@Entity('user')
+export class User {
 
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -14,6 +14,9 @@ export class Users {
 
   @Column({ type: 'varchar' })
   password: string
+
+  @Column({ type: 'varchar' })
+  avatar: string
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date
