@@ -2,8 +2,9 @@ import { compare } from "bcryptjs";
 import { sign } from 'jsonwebtoken'
 import { getRepository } from "typeorm";
 
-import { Users } from "../entity/User";
+import { Users } from "../entity/Users";
 import auth from '../config/auth'
+import { AppError } from "../erros/AppError";
 
 interface Request {
   name: string
@@ -24,13 +25,13 @@ export class AuthenticateUserService {
     })
 
     if (!user) {
-      throw Error('User not found')
+      throw new AppError('incorrect combination', 401)
     }
 
     const passwordMatched = await compare(password, user.password)
 
     if (!passwordMatched) {
-      throw Error('Incorrect password')
+      throw new AppError('Incorrect combination', 401)
     }
 
     //  Cria um token quando houver login.

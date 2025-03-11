@@ -3,6 +3,8 @@ import { getCustomRepository } from 'typeorm';
 import { ClientsRepository } from '../repositories/Clients.repository';
 import { Client } from '../entity/Clients';
 
+import { AppError } from "../erros/AppError";
+
 interface Request {
   company_name: string;
   cgc: string;
@@ -37,7 +39,7 @@ export class CreateClientService {
     const existingClient = await clientsRepository.findByCgc(cgc);
 
     if (existingClient) {
-      throw Error('Client with this CGC already exists.')
+      throw new AppError('Client with this CGC already exists.')
     }
 
     const totalClients = await clientsRepository.count()

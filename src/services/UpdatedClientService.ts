@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 import { Client } from "../entity/Clients";
 import { parseISO } from "date-fns";
+import { AppError } from "../erros/AppError";
 
 interface Request {
   id: string;
@@ -41,12 +42,12 @@ export class UpdatedClientService {
 
     const clientsRepository = getRepository(Client)
     const recordCreationDate = new Date();
-    const parsedDate = parseISO(created_at);
+    // const parsedDate = parseISO(created_at);
 
     const client = await clientsRepository.findOne({ where: id })
 
     if (!client) {
-      throw new Error('Client not exist')
+      throw new AppError('Client not exist')
     }
 
     client.company_name = company_name;

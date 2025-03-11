@@ -1,7 +1,8 @@
 import { getRepository } from "typeorm"
 import { hash } from 'bcryptjs'
 
-import { Users } from "../entity/User"
+import { Users } from "../entity/Users"
+import { AppError } from "../erros/AppError"
 
 interface Request {
   name: string
@@ -23,7 +24,7 @@ export class CreateUsersService {
     })
 
     if (existingUser) {
-      throw new Error('Already have a user with this information')
+      throw new AppError('Already have a user with this information')
     }
 
     //Criptografia de senha.
